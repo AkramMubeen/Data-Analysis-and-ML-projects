@@ -1,0 +1,12 @@
+service: "service.py:svc" # Specify entrypoint and service name
+labels: # Labels related to the project for reminder (the provided labels are just for example)
+  owner: akram
+  project: gallery
+include:
+- "*.py" # A pattern for matching which files to include in the bento build
+python:
+  packages: # Additional pip packages required by the service
+    - xgboost
+    - sklearn
+    - pandas
+    - numpy
