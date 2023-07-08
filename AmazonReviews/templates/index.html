@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Review Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            transition: background-color 0.5s ease;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .positive {
+            color: green;
+        }
+
+        .negative {
+            color: red;
+        }
+
+        .positive-bg {
+            background-color: lightgreen;
+        }
+
+        .negative-bg {
+            background-color: lightcoral;
+        }
+    </style>
+    <script>
+        function changeColor() {
+            var resultElement = document.querySelector('.result');
+            var bodyElement = document.querySelector('body');
+            var result = document.querySelector('.result span');
+            var sentiment = result.innerText.toLowerCase();
+
+            resultElement.classList.add(sentiment);
+
+            if (sentiment === 'positive') {
+                bodyElement.classList.add('positive-bg');
+            } else if (sentiment === 'negative') {
+                bodyElement.classList.add('negative-bg');
+            }
+        }
+    </script>
+</head>
+<body onload="changeColor()">
+    <div class="container">
+        <h1>Product Review Sentiment Analysis</h1>
+        <form action="/predict" method="post">
+            <label for="text">Enter your product review:</label><br>
+            <textarea id="text" name="text" placeholder="Type your review here..." required></textarea><br>
+            <input type="submit" value="Analyze">
+        </form>
+        {% if text %}
+        <div class="result">
+            <p>Your review:</p>
+            <p>{{ text }}</p>
+            <p>Predicted sentiment: <span class="{{ result }}">{{ result }}</span></p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
